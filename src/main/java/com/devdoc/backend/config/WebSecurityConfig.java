@@ -38,7 +38,7 @@ public class WebSecurityConfig {
 				.httpBasic(httpBasic -> httpBasic.disable()) // HTTP Basic 인증을 비활성화
 				.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 세션을 사용하지 않음
 				.authorizeHttpRequests(authorize -> authorize
-						.requestMatchers("/", "/auth/**", "/h2-console/**", "/hello").permitAll() // 특정 경로는 인증 없이 접근 허용
+						.requestMatchers("/**").permitAll() // 특정 경로는 인증 없이 접근 허용
 						.anyRequest().authenticated() // 나머지 모든 요청은 인증 필요
 				)
 				.headers(headers -> headers
@@ -52,7 +52,7 @@ public class WebSecurityConfig {
 	@Bean // CorsConfigurationSource 빈을 생성
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration(); // CORS 설정 객체 생성
-		configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:3000")); // 허용할 오리진 패턴 설정
+		configuration.setAllowedOriginPatterns(Arrays.asList("*")); // 허용할 오리진 패턴 설정
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")); // 허용할 HTTP 메서드 설정
 		configuration.setAllowedHeaders(Arrays.asList("*")); // 모든 헤더 허용
 		configuration.setAllowCredentials(true); // 자격 증명 허용
